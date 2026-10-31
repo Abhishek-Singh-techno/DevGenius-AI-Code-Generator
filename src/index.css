@@ -1,0 +1,485 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* --- PROFESSIONAL CUSTOM STYLES --- */
+
+/* Base HTML & Body Styles (Overall Dark Theme) */
+body {
+    background-color: #0b1119; /* Very dark blue-gray */
+    color: #e5e7eb; /* Light gray for general text */
+    min-height: 100vh;
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"; /* Standard sans-serif stack */
+}
+
+/* Header (Top Bar) Styles */
+header {
+    background-color: rgba(17, 24, 39, 0.9); /* Darker, slightly transparent header */
+    border-bottom: 1px solid #1f2937; /* Dark border */
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    backdrop-filter: blur(8px); /* Mimic Tailwind's backdrop-blur */
+    padding: 0 1rem; /* Horizontal padding */
+    height: 4rem; /* h-16 */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Header Logo/Title Section */
+header > div:first-child { /* Targets the div containing logo and title */
+    display: flex;
+    align-items: center;
+    gap: 0.5rem; /* gap-2 */
+}
+header .bg-blue-600 { /* Blue square around CPU icon */
+    background-color: #2563eb;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+}
+header .text-xl.font-bold { /* DevGenius AI Title */
+    font-size: 1.25rem; /* text-xl */
+    font-weight: 700; /* font-bold */
+    background: linear-gradient(to right, #60a5fa, #34d399); /* Blue-to-emerald gradient */
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent; /* Makes text use gradient */
+}
+header .text-xs.text-slate-400 { /* CODE GENERATOR sub-text */
+    font-size: 0.75rem; /* text-xs */
+    color: #94a3b8; /* text-slate-400 */
+    font-weight: 500; /* font-medium */
+    letter-spacing: 0.05em; /* tracking-wider */
+}
+
+/* "Powered by Gemini" Badge */
+header .text-sm.text-slate-400.bg-slate-900 { /* The badge container */
+    display: flex;
+    align-items: center;
+    gap: 0.5rem; /* gap-2 */
+    font-size: 0.875rem; /* text-sm */
+    color: #94a3b8; /* text-slate-400 */
+    background-color: #1f2937; /* bg-slate-900 */
+    padding: 0.375rem 0.75rem; /* px-3 py-1.5 */
+    border-radius: 9999px; /* rounded-full */
+    border: 1px solid #334155; /* border-slate-800 */
+}
+header .text-yellow-400.fill-yellow-400 { /* Zap icon color */
+    color: #fbbf24; /* text-yellow-400 */
+    fill: #fbbf24; /* fill-yellow-400 */
+}
+
+/* Main Layout (Left and Right Panels) */
+main {
+    max-width: 80rem; /* max-w-7xl */
+    margin-left: auto;
+    margin-right: auto;
+    padding: 2rem 1rem; /* py-8 px-4 */
+    height: calc(100vh - 4rem); /* Full height minus header */
+    display: flex;
+    flex-direction: column; /* lg:flex-row - default column, changes for large screen */
+    gap: 1.5rem; /* gap-6 */
+}
+@media (min-width: 1024px) { /* Equivalent to lg:flex-row */
+    main {
+        flex-direction: row;
+    }
+}
+
+
+/* Left Column (Controls & Input) */
+main > div:first-child { /* The left column container */
+    width: 100%; /* Default full width */
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem; /* gap-6 */
+    height: 100%;
+    overflow-y: auto;
+    padding-bottom: 2rem;
+}
+@media (min-width: 1024px) { /* lg:w-1/3 */
+    main > div:first-child {
+        width: 33.333333%;
+    }
+}
+
+/* Left Column Text */
+h2.text-2xl.font-bold.text-white {
+    font-size: 1.5rem; /* text-2xl */
+    font-weight: 700; /* font-bold */
+    color: #ffffff; /* text-white */
+}
+p.text-slate-400 {
+    color: #94a3b8; /* text-slate-400 */
+}
+
+/* Form Container (Input, Tech Stack, Generate Button) */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem; /* gap-6 */
+    background-color: rgba(17, 24, 39, 0.5); /* bg-slate-900/50 */
+    padding: 1.5rem; /* p-6 */
+    border-radius: 1rem; /* rounded-2xl */
+    border: 1px solid #1f2937; /* border-slate-800 */
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-xl */
+}
+
+/* Tech Stack Labels */
+form label.text-sm.font-semibold.text-slate-300 {
+    font-size: 0.875rem; /* text-sm */
+    font-weight: 600; /* font-semibold */
+    color: #cbd5e1; /* text-slate-300 */
+    display: flex;
+    align-items: center;
+    gap: 0.5rem; /* gap-2 */
+}
+form label .text-blue-400 { /* Icon color */
+    color: #60a5fa;
+}
+
+
+/* Tech Stack Radio Buttons/Boxes */
+.cursor-pointer.p-3.rounded-lg.border { /* Base style for all tech stack boxes */
+    cursor: pointer;
+    padding: 0.75rem; /* p-3 */
+    border-radius: 0.5rem; /* rounded-lg */
+    border: 1px solid;
+    transition-property: all; /* transition-all */
+    display: flex;
+    align-items: center;
+    gap: 0.75rem; /* gap-3 */
+}
+/* Specific styles for selected/unselected states - HTML+Tailwind */
+.cursor-pointer.p-3.rounded-lg.border:nth-child(1) { /* HTML+Tailwind box */
+    background-color: rgba(37, 99, 235, 0.1); /* bg-blue-600/10 */
+    border-color: rgba(59, 130, 246, 0.5); /* border-blue-500/50 */
+    box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.5); /* ring-1 ring-blue-500/50 */
+    color: #ffffff; /* Example for selected text */
+}
+.cursor-pointer.p-3.rounded-lg.border:nth-child(1) .w-2.h-2.bg-blue-500 { /* Inner dot */
+    background-color: #3b82f6;
+}
+.cursor-pointer.p-3.rounded-lg.border:nth-child(1) .w-4.h-4.rounded-full.border { /* Outer circle */
+    border-color: #3b82f6;
+}
+
+/* Specific styles for selected/unselected states - HTML+CSS */
+.cursor-pointer.p-3.rounded-lg.border:nth-child(2) { /* HTML+Standard CSS box */
+    background-color: #1f2937; /* bg-slate-800 */
+    border-color: #334155; /* border-slate-700 */
+}
+.cursor-pointer.p-3.rounded-lg.border:nth-child(2):hover {
+    border-color: #475569; /* hover:border-slate-600 */
+}
+/* Specific styles for selected/unselected states - Pure HTML */
+.cursor-pointer.p-3.rounded-lg.border:nth-child(3) { /* Pure HTML box */
+    background-color: #1f2937; /* bg-slate-800 */
+    border-color: #334155; /* border-slate-700 */
+}
+.cursor-pointer.p-3.rounded-lg.border:nth-child(3):hover {
+    border-color: #475569; /* hover:border-slate-600 */
+}
+
+/* Textarea for Prompt Input */
+textarea {
+    width: 100%;
+    height: 10rem; /* h-40 */
+    background-color: #0b1119; /* bg-slate-950 */
+    border: 1px solid #374151; /* border-slate-700 */
+    border-radius: 0.75rem; /* rounded-xl */
+    padding: 1rem; /* p-4 */
+    color: #e5e7eb; /* text-slate-200 */
+    font-size: 0.875rem; /* text-sm */
+    line-height: 1.5; /* leading-relaxed */
+    resize: none; /* resize-none */
+    outline: none; /* Remove default focus outline */
+}
+textarea::placeholder {
+    color: #64748b; /* placeholder:text-slate-600 */
+}
+textarea:focus {
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5); /* focus:ring-2 focus:ring-blue-500/50 */
+    border-color: transparent; /* focus:border-transparent */
+}
+
+/* Generate UI Button */
+form button[type="submit"] {
+    width: 100%;
+    padding: 1rem; /* py-4 */
+    border-radius: 0.75rem; /* rounded-xl */
+    font-weight: 700; /* font-bold */
+    color: #ffffff; /* text-white */
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); /* shadow-lg */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem; /* gap-2 */
+    transition: all 0.15s ease-in-out; /* transition-all */
+    transform: scale(1); /* initial transform */
+    background: linear-gradient(to right, #2563eb, #047857); /* bg-gradient-to-r from-blue-600 to-emerald-600 */
+}
+form button[type="submit"]:hover:not(:disabled) {
+    background: linear-gradient(to right, #3b82f6, #059669); /* hover:from-blue-500 hover:to-emerald-500 */
+    box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.2), 0 4px 6px -2px rgba(59, 130, 246, 0.1); /* shadow-blue-900/20 */
+}
+form button[type="submit"]:active {
+    transform: scale(0.95); /* active:scale-95 */
+}
+form button[type="submit"]:disabled {
+    background-color: #1f2937; /* bg-slate-800 */
+    color: #64748b; /* text-slate-500 */
+    cursor: not-allowed;
+    box-shadow: none;
+}
+form button[type="submit"] .animate-spin { /* Loader icon */
+    animation: spin 1s linear infinite;
+}
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Quick Start Prompts Section */
+p.text-xs.font-bold.text-slate-500 {
+    font-size: 0.75rem; /* text-xs */
+    font-weight: 700; /* font-bold */
+    color: #64748b; /* text-slate-500 */
+    text-transform: uppercase; /* uppercase */
+    letter-spacing: 0.05em; /* tracking-wider */
+}
+.flex.flex-wrap.gap-2 button { /* Quick Start Prompt Buttons */
+    font-size: 0.75rem; /* text-xs */
+    background-color: #1f2937; /* bg-slate-900 */
+    border: 1px solid #334155; /* border-slate-800 */
+    color: #94a3b8; /* text-slate-400 */
+    padding: 0.5rem 0.75rem; /* px-3 py-2 */
+    border-radius: 0.5rem; /* rounded-lg */
+    transition: all 0.15s ease-in-out; /* transition-colors */
+    text-align: left;
+}
+.flex.flex-wrap.gap-2 button:hover {
+    background-color: #334155; /* hover:bg-slate-800 */
+    color: #60a5fa; /* hover:text-blue-400 */
+}
+
+/* Right Column (Preview/Code Display) */
+main > div:last-child { /* The right column container */
+    width: 100%; /* Default full width */
+    height: 600px; /* h-[600px] */
+    background-color: rgba(17, 24, 39, 0.3); /* bg-slate-900/30 */
+    border-radius: 1rem; /* rounded-2xl */
+    border: 1px solid #1f2937; /* border-slate-800 */
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+@media (min-width: 1024px) { /* lg:w-2/3 lg:h-full */
+    main > div:last-child {
+        width: 66.666667%;
+        height: 100%;
+    }
+}
+
+/* Tabs for Live Preview / Source Code */
+.flex.items-center.border-b.border-slate-800.bg-slate-900\/80 { /* Tabs container */
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #1f2937; /* border-slate-800 */
+    background-color: rgba(17, 24, 39, 0.8); /* bg-slate-900/80 */
+    padding: 0 1rem; /* px-4 */
+}
+.flex.items-center.border-b.border-slate-800.bg-slate-900\/80 button { /* Base tab button style */
+    display: flex;
+    align-items: center;
+    gap: 0.5rem; /* gap-2 */
+    padding: 1rem 1.5rem; /* px-6 py-4 */
+    font-size: 0.875rem; /* text-sm */
+    font-weight: 500; /* font-medium */
+    border-bottom: 2px solid transparent; /* border-b-2 */
+    transition: all 0.15s ease-in-out; /* transition-colors */
+    color: #64748b; /* text-slate-500 */
+}
+.flex.items-center.border-b.border-slate-800.bg-slate-900\/80 button:hover {
+    color: #cbd5e1; /* hover:text-slate-300 */
+}
+.flex.items-center.border-b.border-slate-800.bg-slate-900\/80 button.active-tab { /* Active tab specific style */
+    border-color: #3b82f6; /* border-blue-500 */
+    color: #60a5fa; /* text-blue-400 */
+}
+
+/* Generated Successfully Badge */
+.ml-auto.flex.items-center.gap-2.text-xs.text-slate-500 {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    color: #64748b;
+}
+.ml-auto.flex.items-center.gap-2.text-xs.text-slate-500 .w-2.h-2.rounded-full.bg-emerald-500 {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 9999px;
+    background-color: #10b981; /* bg-emerald-500 */
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+/* Content Area (Preview/Code) */
+.flex-1.p-4.overflow-hidden.relative {
+    flex: 1;
+    padding: 1rem;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Preview Frame (iframe) */
+.h-full.flex.flex-col.items-center.justify-center.text-slate-500.bg-slate-900\/50 {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #64748b; /* text-slate-500 */
+    background-color: rgba(17, 24, 39, 0.5); /* bg-slate-900/50 */
+    border-radius: 0.5rem; /* rounded-lg */
+    border: 2px dashed #1f2937; /* border-2 border-dashed border-slate-800 */
+}
+.h-full.flex.flex-col.items-center.justify-center.text-slate-500.bg-slate-900\/50 .w-16.h-16.mb-4.opacity-50 {
+    width: 4rem; /* w-16 */
+    height: 4rem; /* h-16 */
+    margin-bottom: 1rem; /* mb-4 */
+    opacity: 0.5;
+}
+.h-full.flex.flex-col.items-center.justify-center.text-slate-500.bg-slate-900\/50 .text-lg.font-medium {
+    font-size: 1.125rem; /* text-lg */
+    font-weight: 500; /* font-medium */
+}
+.h-full.flex.flex-col.items-center.justify-center.text-slate-500.bg-slate-900\/50 .text-sm {
+    font-size: 0.875rem; /* text-sm */
+}
+
+/* Iframe for Live Preview */
+iframe {
+    width: 100%;
+    height: 100%;
+    border-radius: 0.5rem; /* rounded-lg */
+    background-color: #ffffff; /* bg-white */
+    border: 1px solid #374151; /* border-slate-700 */
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); /* shadow-2xl */
+}
+
+/* Code Block Display */
+.relative.group.h-full.flex.flex-col { /* Container for code block */
+    position: relative;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.absolute.top-4.right-4.z-10 { /* Copy button position */
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    z-index: 10;
+}
+.flex-1.overflow-auto.bg-\[\#0d1117\].p-4 { /* Actual code display area */
+    flex: 1;
+    overflow: auto;
+    background-color: #0d1117; /* bg-[#0d1117] */
+    padding: 1rem; /* p-4 */
+    border-radius: 0.5rem; /* rounded-lg */
+    border: 1px solid #1f2937; /* border-slate-800 */
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; /* font-mono */
+    font-size: 0.875rem; /* text-sm */
+    color: #cbd5e1; /* text-slate-300 */
+    line-height: 1.625; /* leading-relaxed */
+}
+.flex-1.overflow-auto.bg-\[\#0d1117\].p-4 pre { /* Preformatted text */
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+/* Copy Code Button */
+.px-3.py-1\.5.bg-slate-800 {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.375rem 0.75rem;
+    background-color: #1f2937; /* bg-slate-800 */
+    color: #cbd5e1; /* text-slate-300 */
+    border-radius: 0.375rem; /* rounded-md */
+    font-size: 0.75rem; /* text-xs */
+    font-weight: 500; /* font-medium */
+    transition: all 0.15s ease-in-out;
+    border: 1px solid #334155; /* border-slate-700 */
+}
+.px-3.py-1\.5.bg-slate-800:hover {
+    background-color: #334155; /* hover:bg-slate-700 */
+}
+
+/* Error Overlay */
+.absolute.inset-0.z-20.flex.items-center.justify-center.bg-slate-950\/80 {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(11, 17, 25, 0.8); /* bg-slate-950/80 */
+    backdrop-filter: blur(4px); /* backdrop-blur-sm */
+    padding: 2rem;
+}
+.bg-red-900\/20.border.border-red-800 {
+    background-color: rgba(153, 27, 27, 0.2); /* bg-red-900/20 */
+    border: 1px solid #991b1b; /* border-red-800 */
+    color: #fca5a5; /* text-red-200 */
+    padding: 1.5rem;
+    border-radius: 0.75rem;
+    text-align: center;
+    max-width: 28rem;
+}
+.bg-red-900\/20.border.border-red-800 button {
+    margin-top: 1rem;
+    font-size: 0.75rem;
+    background-color: rgba(153, 27, 27, 0.4);
+    transition: all 0.15s ease-in-out;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    color: #fca5a5;
+}
+.bg-red-900\/20.border.border-red-800 button:hover {
+    background-color: rgba(153, 27, 27, 0.6);
+}
+
+
+/* Custom Scrollbar (Copied from your original CSS, ensuring it works) */
+.custom-scrollbar::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: #0f172a;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #334155;
+    border-radius: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #475569;
+}
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+.scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
