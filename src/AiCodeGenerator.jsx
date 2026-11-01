@@ -22,7 +22,7 @@ Monitor
 
 // --- API CONFIGURATION ---
 // The environment injects the key into this variable at runtime.
-const apiKey = "Your_API_Key";
+const apiKey = "AIzaSyDUIYyyZgKSWya2Qsg8eVvaDUsK3Q8yHh0";
 
 const GoogleGeminiService = {
 async generateCode(prompt, type) {
