@@ -20,73 +20,99 @@ Monitor
 * A professional tool to generate frontend code using Google Gemini API.
 */
 
-// --- API CONFIGURATION ---
-// The environment injects the key into this variable at runtime.
-const apiKey = "Your_Api_key";
+// // --- API CONFIGURATION ---
+// // The environment injects the key into this variable at runtime.
+// const apiKey = "Your_Api_key";
 
-const GoogleGeminiService = {
-async generateCode(prompt, type) {
-const model = "gemini-3.6-flash";
-const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+// const GoogleGeminiService = {
+// async generateCode(prompt, type) {
+// const model = "gemini-3.6-flash";
+// const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
 
-let systemInstruction = "";
+// let systemInstruction = "";
 
-switch (type) {
-case "html-tailwind":
-systemInstruction = "You are an expert frontend developer. Generate a single HTML file containing modern, responsive HTML using Tailwind CSS via CDN. Do not explain, just provide the code. Ensure the design is professional and visually stunning.";
-break;
-case "html-css":
-systemInstruction = "You are an expert frontend developer. Generate a single HTML file that includes internal CSS (<style> tags). Make it colorful, modern, and responsive. Do not explain, just provide the complete code.";
-break;
-case "html-only":
-systemInstruction = "You are an expert web developer. Generate clean, semantic, and accessible raw HTML structure without CSS classes (or minimal inline styles if absolutely necessary for layout). Focus on structure.";
-break;
-default:
-systemInstruction = "You are an expert coder.";
-}
-
-const payload = {
-contents: [{
-parts: [{ text: `Task: Create a ${type} solution for the following request: ${prompt}. \n\nIMPORTANT: Return ONLY the raw code starting with <!DOCTYPE html> or relevant tag. Do not include markdown backticks like \`\`\`html.` }]
-}],
-systemInstruction: {
-parts: [{ text: systemInstruction }]
-}
-};
-
-try {
-const response = await fetch(url, {
-method: 'POST',
-headers: {
-'Content-Type': 'application/json'
-},
-body: JSON.stringify(payload)
-});
-
-// if (!response.ok) {
-// throw new Error(`API Error: ${response.statusText}`);
+// switch (type) {
+// case "html-tailwind":
+// systemInstruction = "You are an expert frontend developer. Generate a single HTML file containing modern, responsive HTML using Tailwind CSS via CDN. Do not explain, just provide the code. Ensure the design is professional and visually stunning.";
+// break;
+// case "html-css":
+// systemInstruction = "You are an expert frontend developer. Generate a single HTML file that includes internal CSS (<style> tags). Make it colorful, modern, and responsive. Do not explain, just provide the complete code.";
+// break;
+// case "html-only":
+// systemInstruction = "You are an expert web developer. Generate clean, semantic, and accessible raw HTML structure without CSS classes (or minimal inline styles if absolutely necessary for layout). Focus on structure.";
+// break;
+// default:
+// systemInstruction = "You are an expert coder.";
 // }
 
-if (!response.ok) {
-    const errorData = await response.json();
-    console.error("Gemini API Error Details:", errorData);
-    throw new Error(errorData.error?.message || response.statusText);
-}
+// const payload = {
+// contents: [{
+// parts: [{ text: `Task: Create a ${type} solution for the following request: ${prompt}. \n\nIMPORTANT: Return ONLY the raw code starting with <!DOCTYPE html> or relevant tag. Do not include markdown backticks like \`\`\`html.` }]
+// }],
+// systemInstruction: {
+// parts: [{ text: systemInstruction }]
+// }
+// };
 
-const data = await response.json();
-let text = data.candidates?.[0]?.content?.parts?.[0]?.text;
+// try {
+// const response = await fetch(url, {
+// method: 'POST',
+// headers: {
+// 'Content-Type': 'application/json'
+// },
+// body: JSON.stringify(payload)
+// });
 
-// Clean up markdown formatting if the AI adds it despite instructions
-if (text) {
-text = text.replace(/^```html\s*/, '').replace(/^```\s*/, '').replace(/```$/, '');
-}
+// // if (!response.ok) {
+// // throw new Error(`API Error: ${response.statusText}`);
+// // }
 
-return text || ""; // Ensure we return a string, never undefined/null
-} catch (error) {
-console.error("Gemini API Error:", error);
-throw error;
-}
-}
+// if (!response.ok) {
+//     const errorData = await response.json();
+//     console.error("Gemini API Error Details:", errorData);
+//     throw new Error(errorData.error?.message || response.statusText);
+// }
+
+// const data = await response.json();
+// let text = data.candidates?.[0]?.content?.parts?.[0]?.text;
+
+// // Clean up markdown formatting if the AI adds it despite instructions
+// if (text) {
+// text = text.replace(/^```html\s*/, '').replace(/^```\s*/, '').replace(/```$/, '');
+// }
+
+// return text || ""; // Ensure we return a string, never undefined/null
+// } catch (error) {
+// console.error("Gemini API Error:", error);
+// throw error;
+// }
+// }
+// };
+
+
+const GoogleGeminiService = {
+    async generateCode(prompt, type) {
+
+        const response = await fetch("/api/generate", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                prompt: prompt,
+                type: type
+            })
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.error || "Generation failed");
+        }
+
+        const data = await response.json();
+
+        return data.code || "";
+    }
 };
 
 // --- COMPONENTS ---
