@@ -146,7 +146,7 @@ export const handler = async function (event) {
         }
 
         // 4. Gemini Model
-        const model = "gemini-3.8-flash";
+        const model = "gemini-3.6-flash";
 
         // 5. System Instructions
         const systemInstruction = {
