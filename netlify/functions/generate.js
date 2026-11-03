@@ -45,7 +45,7 @@ export const handler = async function (event) {
     }
 
     // 4. Gemini Model
-    const model = "gemini-3.8-flash";
+    const model = "gemini-3.5-flash-lite";
 
     // 5. System Instructions (compact code = faster response)
     const systemInstruction = {
@@ -88,10 +88,7 @@ export const handler = async function (event) {
             }
           ],
           generationConfig: {
-            maxOutputTokens: 4096,
-            thinkingConfig: {
-              thinkingLevel: "low"
-            }
+            maxOutputTokens: 4096
           }
         }),
         signal: controller.signal
