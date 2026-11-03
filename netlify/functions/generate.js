@@ -88,7 +88,10 @@ export const handler = async function (event) {
             }
           ],
           generationConfig: {
-            maxOutputTokens: 4096
+            maxOutputTokens: 4096,
+            thinkingConfig: {
+              thinkingLevel: "low"
+            }
           }
         }),
         signal: controller.signal
