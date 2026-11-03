@@ -4,7 +4,7 @@ Type what you want, and get the code with a live preview in seconds.
 
 Built with **React**, **Vite**, **JavaScript**, **CSS**, **Tailwind CSS**
 
-[🚀 **Live Demo**](YOUR_LIVE_LINK_HERE) 
+[🚀 **Live Demo**](https://fanciful-cupcake-bf7a2d.netlify.app/) 
 
 
 ## 📑 Table of Contents
